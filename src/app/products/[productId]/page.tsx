@@ -1,27 +1,22 @@
-import { Metadata } from "next";
-import { resolve } from "path";
+import { FC } from "react";
+import Link from "next/link";
 
-type Props = {
+interface ProductDetailsProps {
     params: {
-        productId: string
-    }
+        productId: string;
+    };
 }
 
-export const generateMetadata = async({ params }: Props):Promise<Metadata> => {
-    const title = await new Promise(resolve => {
-        setTimeout(() => {
-            resolve(`${params.productId}`)
-        })
-    })
-    return {
-        title: `Product ${title}`
-    }
-}
+const ProductDetails: FC<ProductDetailsProps> = ({ params }) => {
+    const { productId } = params;
 
-export default function ProductDetails( { 
-    params,
- }: { 
-    params: { productId: string };
-}) {
-    return <h1>Product details {params.productId}</h1>
-}
+    return (
+        <>
+            <h1>Product Detail Page</h1>
+            <h2>Product ID: {productId}</h2>
+            <Link href="/products">Back to Product List</Link>
+        </>
+    );
+};
+
+export default ProductDetails;
